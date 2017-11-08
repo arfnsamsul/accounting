@@ -74,7 +74,7 @@
 				                        <ul class="nav navbar-nav">
 				                            <li><a href="#">Master Data Perusahaan</a></li>
 				                            <li><a href="#">Master Data Aset</a></li>
-				                            <li><a href="#">Master Data Barang</a></li>
+				                            <li><a href="master_barang.php">Master Data Barang</a></li>
 				                            <li><a href="#">Lihat Data Pegawai</a></li>
 				                            <li><a href="#">Lihat Data Customer</a></li>
 				                            <li><a href="#">Lihat Data Supplier</a></li>

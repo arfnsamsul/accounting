@@ -1,12 +1,18 @@
 <?php
-	function getAllData($table, $col){
-		$sql = "select ".$col." from ".$table." where 1";
+	function getAllData($table, $col, $last = ""){
+		$sql = "select ".$col." from ".$table." where 1 ".$last;
 		$res = mysql_query($sql);
 		$result = [];
 		while ($row = mysql_fetch_assoc($res)) {
 			$result[] = $row;
 		}
 		return $result;
+	}
+
+	function deleteDB($table, $where = 1){
+		$sql = "DELETE FROM ".$table." WHERE ".$where;
+		$res = mysql_query($sql);
+		return $res;
 	}
 
 	function insertDB($table,$data){
@@ -29,7 +35,6 @@
 		$sql .= " VALUES ".$values;
 
 		$res = mysql_query($sql);
-		echo $sql;
 		return $res;
 	}
 
@@ -46,6 +51,23 @@
 		}
 
 		return $id;
+	}
+
+	function updateDB($table,$data, $where = '1'){
+		$sql = "UPDATE ".$table." ";
+
+		$str = " SET ";
+
+		foreach ($data as $key => $val) {
+			$str .= " ".$key." = '".$val."', ";
+		}
+		
+		$str = substr($str, 0, strlen($str) - 2);
+		
+		$sql .= $str;
+		$sql .= " WHERE ".$where;
+		$res = mysql_query($sql);
+		return $res;
 	}
 
 ?>
