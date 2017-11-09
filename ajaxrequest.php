@@ -22,6 +22,18 @@
 			return $result;
 		}
 
+		function getdetailtransaksi()
+		{
+			$id = isset($_GET['id']) ? $_GET['id'] : "";
+			$sql = "select * from jurnal_transaksi where id = ".$id;
+			$res = mysql_query($sql);
+			$row = mysql_fetch_assoc($res);
+
+			$result = $row;
+
+			return $result;
+		}
+
 		function defaultFunc(){
 			return [];
 		}

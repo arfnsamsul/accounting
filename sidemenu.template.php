@@ -92,7 +92,7 @@
 				                <div id="dr-jurnal" class="panel-collapse collapse">
 				                    <div class="panel-body">
 				                        <ul class="nav navbar-nav">
-				                            <li><a href="#">Jurnal Transaksi</a></li>
+				                            <li><a href="jurnaltransaksi.php">Jurnal Transaksi</a></li>
 				                            <li><a href="#">Jurnal Pegawai</a></li>
 				                            <li><a href="#">Jurnal Kegiatan</a></li>
 				                            <li><a href="#">Lihat Jurnal Aset</a></li>

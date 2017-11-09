@@ -70,7 +70,7 @@
     <head>
         <?php include "headmeta.template.php" ?>
 
-            <title>Master Akun</title>
+            <title>Master Barang</title>
     </head>
 
     <body>
