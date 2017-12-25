@@ -6,14 +6,13 @@
     $dataAkun = getAllData('akun', 'id, nama', "order by id*1, id");
     if (isset($_GET['submit'])) {         
         if ($_GET['submit'] == "filter") {
-            $data = getAllData('jurnal_transaksi t left join akun a on a.id = t.akun', 't.*, a.nama as namaakun', "order by tanggaltransaksi");
+            $data = getAllData('jurnal_transaksi t left join akun a on a.id = t.akun', 't.*, a.nama as namaakun', " and t.akun = '6100' order by tanggaltransaksi");
         }
     }
 
 	if (isset($_POST['submit'])) {         
         if ($_POST['submit'] == "new") {
 			$tanggaltransaksi = $_POST['tanggaltransaksi'];
-            $nomorbuktitransaksi = $_POST['nomorbuktitransaksi'];
             $jenis = $_POST['jenis'];
             $mitra = $_POST['mitra'];
             $deskripsi = $_POST['deskripsi'];
@@ -25,7 +24,6 @@
 			$data = array(
                 //'id' => $id,
 				'tanggaltransaksi' => $tanggaltransaksi,
-                'nomorbuktitransaksi' => $nomorbuktitransaksi,
                 'jenis' => $jenis,
                 'mitra' => $mitra,
                 'deskripsi' => $deskripsi,
@@ -40,20 +38,14 @@
 		}elseif ($_POST['submit'] == "edit") {
 			$id = $_POST['editid'];
             $tanggaltransaksi = $_POST['edittanggaltransaksi'];
-            $nomorbuktitransaksi = $_POST['editnomorbuktitransaksi'];
-            $jenis = $_POST['editjenis'];
             $mitra = $_POST['editmitra'];
             $deskripsi = $_POST['editdeskripsi'];
-            $akun = $_POST['editakun'];
             $nilai = $_POST['editnilai'];
 
 			$data = array(
                 'tanggaltransaksi' => $tanggaltransaksi,
-                'nomorbuktitransaksi' => $nomorbuktitransaksi,
-                'jenis' => $jenis,
                 'mitra' => $mitra,
                 'deskripsi' => $deskripsi,
-                'akun' => $akun,
                 'nilai' => $nilai
             );
 			$act = updateDB('jurnal_transaksi',$data, "id = '".$id."'");
@@ -72,7 +64,7 @@
     <head>
         <?php include "headmeta.template.php" ?>
 
-            <title>Jurnal Transaksi</title>
+            <title>Jurnal Pegawai</title>
     </head>
 
     <body>
@@ -88,22 +80,13 @@
                             <fieldset>
 
                                 <!-- Form Name -->
-                                <legend>Jurnal Transaksi</legend>
+                                <legend>Jurnal Pegawai</legend>
 
                                 <!-- Text input-->
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="tanggaltransaksi">Tanggal Transaksi</label>
                                     <div class="col-md-4">
                                         <input id="tanggaltransaksi" name="tanggaltransaksi" type="datetime-local" class="form-control input-md" required="">
-
-                                    </div>
-                                </div>
-
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="nomorbuktitransaksi">Nomor Bukti Transaksi</label>
-                                    <div class="col-md-4">
-                                        <input id="nomorbuktitransaksi" name="nomorbuktitransaksi" type="text" placeholder="Nomor Bukti Transaksi" class="form-control input-md">
 
                                     </div>
                                 </div>
@@ -115,11 +98,6 @@
                                         <div class="radio">
                                             <label for="jenis-0">
                                                 <input type="radio" name="jenis" id="jenis-0" value="debet" checked="checked"> Debet
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label for="jenis-1">
-                                                <input type="radio" name="jenis" id="jenis-1" value="kredit"> Kredit
                                             </label>
                                         </div>
                                     </div>
@@ -135,9 +113,9 @@
                                     </div>
                                 </div> -->
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="mitra">Mitra</label>
+                                    <label class="col-md-4 control-label" for="mitra">Nama Pegawai</label>
                                     <div class="col-md-4">
-                                        <input id="mitra" name="mitra" type="text" placeholder="Supplier/Customer" class="form-control input-md">
+                                        <input id="mitra" name="mitra" type="text" placeholder="Nama Pegawai" class="form-control input-md">
                                     </div>
                                 </div>
 
@@ -155,10 +133,7 @@
                                     <label class="col-md-4 control-label" for="akun">Akun</label>
                                     <div class="col-md-4">
                                         <select id="akun" name="akun" class="form-control">
-                                            <option value="" selected disabled>-= Pilih Akun =-</option>
-                                            <?php foreach ($dataAkun as $key => $value): ?>
-                                                <option value="<?php echo $value['id'] ?>"><?php echo $value['nama']." (".$value['id'].")" ?></option>
-                                            <?php endforeach ?>
+                                            <option value="6100" selected>Gaji Karyawan</option>
                                         </select>
                                     </div>
                                 </div>
@@ -199,7 +174,6 @@
                             <thead>
                                 <tr>
                                     <th>Tanggal Transaksi</th>
-                                    <th>No. Bukti Transaksi</th>
                                     <th>Cust/Supplier</th>
                                     <th>Uraian Transaksi</th>
                                     <th>Akun</th>
@@ -213,9 +187,6 @@
                                     <tr>
                                         <td>
                                             <?php echo $value['tanggaltransaksi'] ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $value['nomorbuktitransaksi'] ?>
                                         </td>
                                         <td>
                                             <?php echo $value['mitra'] ?>
@@ -234,7 +205,7 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalView" data-id="<?php echo $value['id'] ?>">Lihat & Ubah</button>
-                                            <a href="printjurnal.php?id=<?php echo $value['id'] ?>" target="_blank" class="btn btn-xs btn-success" data-toggle="modal" >Cetak Transaksi</a>
+
                                         </td>
                                     </tr>
                                     <?php endforeach ?>
@@ -265,15 +236,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="editnomorbuktitransaksi">Nomor Bukti Transaksi</label>
-                                    <div class="col-md-6">
-                                        <input id="editnomorbuktitransaksi" name="editnomorbuktitransaksi" type="text" placeholder="Nomor Bukti Transaksi" class="form-control input-md">
-
-                                    </div>
-                                </div>
-
                                 <!-- Multiple Radios -->
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="editjenis">Jenis Transaksi</label>
@@ -281,11 +243,6 @@
                                         <div class="radio">
                                             <label for="editjenis-0">
                                                 <input type="radio" name="editjenis" id="editjenis-0" value="debet" checked="checked"> Debet
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label for="editjenis-1">
-                                                <input type="radio" name="editjenis" id="editjenis-1" value="kredit"> Kredit
                                             </label>
                                         </div>
                                     </div>
@@ -321,10 +278,7 @@
                                     <label class="col-md-4 control-label" for="editakun">Akun</label>
                                     <div class="col-md-6">
                                         <select id="editakun" name="editakun" class="form-control">
-                                            <option value="" selected disabled>-= Pilih Akun =-</option>
-                                            <?php foreach ($dataAkun as $key => $value): ?>
-                                                <option value="<?php echo $value['id'] ?>"><?php echo $value['nama']." (".$value['id'].")" ?></option>
-                                            <?php endforeach ?>
+                                            <option value="6100" selected>Gaji Karyawan</option>
                                         </select>
                                     </div>
                                 </div>
@@ -373,7 +327,6 @@
                         var tgl = hasil.tanggaltransaksi.split(" ");
                         var w3ctgl = tgl[0] + 'T' + tgl[1]
 
-                        console.log(hasil);
                         modal.find('#editid').val(hasil.id)
                         modal.find('#edittanggaltransaksi').val(w3ctgl)
                         modal.find('#editnomorbuktitransaksi').val(hasil.nomorbuktitransaksi)

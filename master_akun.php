@@ -6,6 +6,7 @@
 		$id = $_POST['id'];
 		$idtipeperusahaan = $_POST['tipeperusahaan'];
 		$nama = $_POST['nama'];
+		$jenislaporan = $_POST['jenislaporan'];
 		$deskripsi = $_POST['deskripsi'];
 
 		if ($id == '') {
@@ -16,6 +17,7 @@
 			'id' => $id,
 			'idtipeperusahaan' => $idtipeperusahaan,
 			'nama' => $nama,
+			'jenislaporan' => $jenislaporan,
 			'deskripsi' => $deskripsi,
 		);
 
@@ -28,7 +30,8 @@
 		}
 	}	
 
-	$data = getAllData('akun a left join tipe_perusahaan t on t.id = a.idtipeperusahaan', 'a.id, a.nama, t.nama as tipeperusahaan');
+	$data = getAllData('akun a left join tipe_perusahaan t on t.id = a.idtipeperusahaan', 'a.id, a.nama, a.jenislaporan, t.nama as tipeperusahaan');
+
 	$tipeperusahaan = getAllData('tipe_perusahaan', 'id, nama');
 ?>
 <!DOCTYPE html>
@@ -83,6 +86,22 @@
 					  </div>
 					</div>
 
+					<div class="form-group">
+                        <label class="col-md-4 control-label" for="jenislaporan">Jenis Laporan</label>
+                        <div class="col-md-4">
+                            <div class="radio">
+                                <label for="jenislaporan-0">
+                                    <input type="radio" name="jenislaporan" id="jenislaporan-0" value="labarugi" checked="checked"> Laba RUgi
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label for="jenislaporan-1">
+                                    <input type="radio" name="jenislaporan" id="jenislaporan-1" value="neraca"> Neraca
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
 					<!-- Textarea -->
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="deskripsi">Deskripsi</label>
@@ -107,6 +126,7 @@
 								<th>ID</th>
 								<th>Tipe Perusahaan</th>
 								<th>Nama Akun</th>
+								<th>Jenis Laporan</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -115,6 +135,18 @@
 									<td> <?php echo $value['id'] ?> </td>
 									<td> <?php echo $value['tipeperusahaan'] ?> </td>
 									<td> <?php echo $value['nama'] ?> </td>
+									<td>
+										<?php 
+											if ($value['jenislaporan'] == 'labarugi') {
+												echo "Laba Rugi";
+											}elseif ($value['jenislaporan'] == 'neraca') {
+												echo "Neraca";
+											}else{
+												echo $value['jenislaporan'];
+											}
+										?> 
+
+									</td>
 								</tr>
 							<?php endforeach ?>
 						</tbody>

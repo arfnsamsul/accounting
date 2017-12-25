@@ -72,7 +72,7 @@
     <head>
         <?php include "headmeta.template.php" ?>
 
-            <title>Jurnal Transaksi</title>
+            <title>Jurnal Kegiatan</title>
     </head>
 
     <body>
@@ -88,7 +88,7 @@
                             <fieldset>
 
                                 <!-- Form Name -->
-                                <legend>Jurnal Transaksi</legend>
+                                <legend>Jurnal Kegiatan</legend>
 
                                 <!-- Text input-->
                                 <div class="form-group">
@@ -234,7 +234,7 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalView" data-id="<?php echo $value['id'] ?>">Lihat & Ubah</button>
-                                            <a href="printjurnal.php?id=<?php echo $value['id'] ?>" target="_blank" class="btn btn-xs btn-success" data-toggle="modal" >Cetak Transaksi</a>
+
                                         </td>
                                     </tr>
                                     <?php endforeach ?>
